@@ -1,0 +1,25 @@
+version: '3.8'
+services:
+  app:
+    build: .
+    container_name: app-front-container
+    ports:
+      - "8080:8080"
+    volumes:
+      - ./:/docker-activity
+    networks:
+      - rede-atividade-compose
+
+  server:
+    image: clue/json-server:latest
+    container_name: json-server-container
+    ports: 
+      - "3000:80"
+    volumes:
+      - ./server-json.json:/data/db.json
+    networks:
+      - rede-atividade-compose
+
+networks:
+    rede-atividade-compose:
+        driver: bridge
